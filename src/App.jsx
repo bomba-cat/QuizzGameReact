@@ -1,23 +1,22 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Button from './components/Button.jsx'
+import Auto from './pages/Autos/game.jsx'
 
 function App() {
 
-  function button_clicked(event) {
-
-  }
-
   const options = ["Autos", "CPU", "GPU"]
   const option_buttons = options.map(a =>
-    <Button key={ a } name={ a } fun={ button_clicked } />)
+    <Button key={ a } name={ a } fun={ () => setPage('Auto') } />)
 
+  const [page, setPage] = React.useState('');
+  if (page === 'Auto') {
+    return <Auto />;
+  }
   return (
     <>
-     <div className="answer-buttons">
-       { option_buttons }
+      <div className="answer-buttons">
+        { option_buttons }
       </div>
     </>
   )

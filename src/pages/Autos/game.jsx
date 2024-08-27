@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Button from './Button.jsx'
+import '../../App.css'
+import Button from '../../components/Button.jsx'
 
-function App() {
+function Auto() {
   function button_clicked(event) {
     const clicked = event.target.innerHTML
     const answer = "Bledion"
@@ -19,6 +17,11 @@ function App() {
   const answer_buttons = answer.map(a =>
     <Button key={ a } name={ a } fun={ button_clicked } />)
 
+  const [page, setPage] = React.useState('');
+  if (page === 'Auto') {
+    return <Home />;
+  }
+
   return (
     <>
       <div className="p-48 bg-gradient-to-tr from-amber-500 to-pink-500 h-screen w-screen absolute top-0 left-0">
@@ -32,4 +35,4 @@ function App() {
   )
 }
 
-export default App
+export default Auto
