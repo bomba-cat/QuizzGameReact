@@ -6,6 +6,7 @@ import Question2 from './Question2.jsx';
 import Question3 from './Question3.jsx';
 import Rules from './rules.jsx'
 import Impress from './impress.jsx'
+import Finish from '../../components/finished.jsx'
 const questions = [
   {
     id: 1,
@@ -62,10 +63,10 @@ function Auto() {
   };
   const CurrentQuestionComponent = questionList[currentQuestionIndex]?.component;
   return (
-    <div className="App">
+    <div className="App ">
       {showResult ? (
         <div className="result-container text-center">
-          <p className="result-message">{resultMessage}</p>
+          <Finish msg={resultMessage} />
           <button
             onClick={isCorrect === false ? () => setShowResult(false) : handleNextQuestion}
             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"

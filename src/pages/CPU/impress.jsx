@@ -3,7 +3,7 @@ import React from 'react'
 
 function Impress() {
   return(<>
-    <p>Impressum
+    <p className="absolute top-3/4 -translate-y-1/2 -translate-x-1/2 left-1/2">Impressum
 
 Firma: Beispiel GmbH
 Adresse: Musterstraße 1, 12345 Musterstadt, Deutschland

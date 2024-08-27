@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../../components/Button.jsx';
+import Question from '../../components/question.jsx'
 
 const Question1 = ({ onAnswer, correctAnswer }) => {
   const buttonClicked = (event) => {
@@ -13,8 +14,8 @@ const Question1 = ({ onAnswer, correctAnswer }) => {
   ));
 
   return (
-    <div className="p-48 bg-gradient-to-tr from-amber-500 to-pink-500 h-screen w-screen">
-      <h1 className="text-center mt-20">Wie nennt man den Zwischenspeicher der GPU</h1>
+    <div className="p-48 bg-gradient-to-tr from-zinc-100 via-gray-200 to-slate-300 dark:bg-gradient-to-tr dark:from-slate-900 dark:via-gray-800 dark:to-zinc-700 h-screen w-screen absolute top-0 left-0">
+      <Question s="text-center mt-20" name="Wie nennt man den Zwischenspeicher der GPU" />
       <div className="answer-buttons text-center mt-8">
         {answerButtons}
       </div>
