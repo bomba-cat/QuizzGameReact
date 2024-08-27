@@ -1,35 +1,88 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Button from './Button.jsx'
-
-function App() {
-  function button_clicked(event) {
-    const clicked = event.target.innerHTML
-    const answer = "Bledion"
-    if (clicked == answer) {
-      document.getElementById("result").innerHTML=`<img src="https://cdn.discordapp.com/attachments/1147460422719508491/1277950825003487232/45d4a3411dbbe7160c9a29070afb7eff.png?ex=66cf07f3&is=66cdb673&hm=b745fa99596e5c05a85c7e47be23cda13020e708e82fd71e3b26322c93a01765&" />`
-    } else {
-      document.getElementById("result").innerHTML=`<img src="https://cdn.discordapp.com/attachments/1147460422719508491/1277952045705465938/unknown.png?ex=66cf0916&is=66cdb796&hm=426e6893fb4b6b0bb2c0c38e95ffcea14c414321aac3c1a140699e295a89b071&" />`
-    }
+import '../../App.css'
+import Button from '../../components/Button.jsx'
+import React, { useState, useEffect } from 'react';
+import Question1 from './Question1.jsx';
+import Question2 from './Question2.jsx';
+import Question3 from './Question3.jsx';
+import Rules from './rules.jsx'
+import Impress from './impress.jsx'
+const questions = [
+  {
+    id: 1,
+    component: Question1,
+    correctAnswer: 'VRAM'
+  },
+  {
+    id: 2,
+    component: Question2,
+    correctAnswer: 'Multithreading'
+  },
+  {
+    id: 3,
+    component: Question3,
+    correctAnswer: 'Graphical Processing Unit'
   }
-
-  const answer = ["Bruno", "Bledion", "Pascal"]
-  const answer_buttons = answer.map(a =>
-    <Button key={ a } name={ a } fun={ button_clicked } />)
-
+];
+function GPU() {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [questionList, setQuestionList] = useState([]);
+  const [showResult, setShowResult] = useState(false);
+  const [resultMessage, setResultMessage] = useState('');
+  const [isCorrect, setIsCorrect] = useState(null);
+  useEffect(() => {
+    const shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
+    setQuestionList(shuffledQuestions);
+  }, []);
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questionList.length - 1) {
+      setCurrentQuestionIndex(prev => prev + 1);
+      setIsCorrect(null); // Reset correct answer state
+    } else {
+      setResultMessage('Herzlichen Glueckwunsch! Du hast das Quiz abgeschlossen.');
+      setShowResult(true);
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
+    }
+  };
+  const handleAnswer = (isCorrect) => {
+    if (isCorrect) {
+      setResultMessage('Richtige Antwort!');
+      setIsCorrect(true);
+      setShowResult(true);
+      setTimeout(() => {
+        setShowResult(false);
+        handleNextQuestion();
+      }, 2000);
+    } else {
+      setResultMessage('Falsche Antwort! Versuche es noch einmal.');
+      setIsCorrect(false);
+      setShowResult(true);
+    }
+  };
+  const CurrentQuestionComponent = questionList[currentQuestionIndex]?.component;
   return (
-    <>
-      <div className="p-48 bg-gradient-to-tr from-amber-500 to-pink-500 h-screen w-screen absolute top-0 left-0">
-        <h1 className="absolute top-36 -translate-y-1/2 -translate-x-1/2 left-1/2">Which cat is the silliest?</h1>
-        <div className="answer-buttons m-1 absolute inset-y-3/4 -translate-y-1/2 -translate-x-1/2 left-1/2">
-          { answer_buttons }
+    <div className="App">
+      {showResult ? (
+        <div className="result-container text-center">
+          <p className="result-message">{resultMessage}</p>
+          <button
+            onClick={isCorrect === false ? () => setShowResult(false) : handleNextQuestion}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            {isCorrect === false ? 'Zurueck zur Frage' : 'Naechste Frage'}
+          </button>
         </div>
-        <div id="result" className="size-48 mx-auto absolute -translate-y-1/2 -translate-x-1/2 left-1/2 top-2/4"></div>
-      </div>
-    </>
-  )
+      ) : (
+        CurrentQuestionComponent ? (
+          <CurrentQuestionComponent onAnswer={handleAnswer} correctAnswer={questionList[currentQuestionIndex]?.correctAnswer} />
+        ) : (
+          <div>Lade Fragen...</div>
+        )
+      )}
+      <Rules />
+      <Impress />
+    </div>
+  );
 }
-
-export default App
+export default GPU;
