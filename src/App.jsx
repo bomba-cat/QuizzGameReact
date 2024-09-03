@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import './App.css'
-import Button from './components/Button.jsx'
 import Auto from './pages/Autos/game.jsx'
 import CPU from './pages/CPU/game.jsx'
 import GPU from './pages/GPU/game.jsx'
 import Category from './components/category.jsx'
+import Layout from './components/layout.jsx'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
           {option_buttons}
         </div>
         <Routes>
-          <Route path="/" element={}>
+          <Route path="/" element={<Layout />}>
             <Route index element={<div>Choose a quiz</div>} />
               <Route path="autos" element={<Auto />} />
               <Route path="cpu" element={<CPU />} />
