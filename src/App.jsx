@@ -8,7 +8,7 @@ import Category from './components/category.jsx'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
-  const options = ["Autos", "CPU", "GPU"]
+  const options = ["autos", "cpu", "gpu"]
   const option_buttons = options.map(a =>
     <Category key={a} name={a} />
   )
