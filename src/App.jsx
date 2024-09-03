@@ -21,10 +21,12 @@ function App() {
           {option_buttons}
         </div>
         <Routes>
-          <Route path="/" element={<div>Choose a quiz</div>} />
-          <Route path="/autos" element={<Auto />} />
-          <Route path="/cpu" element={<CPU />} />
-          <Route path="/gpu" element={<GPU />} />
+          <Route path="/" element={}>
+            <Route index element={<div>Choose a quiz</div>} />
+              <Route path="autos" element={<Auto />} />
+              <Route path="cpu" element={<CPU />} />
+              <Route path="gpu" element={<GPU />} />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>
